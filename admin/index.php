@@ -1,4 +1,6 @@
-<?php require_once('../config.php'); ?>
+<?php require_once('../config.php');
+require_once('./inc/subscription_middleware.php')
+?>
  <!DOCTYPE html>
 <html lang="en" class="" style="height: auto;">
 <?php require_once('inc/header.php') ?>

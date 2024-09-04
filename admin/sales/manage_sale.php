@@ -30,14 +30,20 @@ if (isset($_GET['id'])) {
             <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <label class="control-label text-info">Sale Code</label>
                         <input type="text" class="form-control form-control-sm rounded-0" value="<?php echo isset($sales_code) ? $sales_code : '' ?>" readonly>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="client" class="control-label text-info">Client Name</label>
-                            <input type="text" name="client" class="form-control form-control-sm rounded-0" value="<?php echo isset($client) ? $client : 'Guest' ?>">
+                            <input autofocus type="text" placeholder="Mr. Guest" name="client" class="form-control form-control-sm rounded-0" value="<?php echo isset($client) ? $client : 'Guest' ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="client_contact_no" class="control-label text-info">Client Contact No.</label>
+                            <input type="text" placeholder="+91 87********" name="client_contact_no" class="form-control form-control-sm rounded-0" value="<?php echo isset($client_contact_no) ? $client_contact_no : '' ?>">
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -49,7 +55,14 @@ if (isset($_GET['id'])) {
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="client_addr" class="text-info control-label">Client Address</label>
+                            <textarea name="client_addr" id="client_addr" rows="1" class="form-control rounded-0"><?php echo isset($client_addr) ? $client_addr : '' ?></textarea>
+                        </div>
                 </div>
+                </div>
+                
                 <hr>
                 <fieldset>
                     <legend class="text-info">Item Form</legend>
@@ -74,10 +87,16 @@ if (isset($_GET['id'])) {
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="unit" class="control-label">Unit</label>
                                 <input type="text" class="form-control rounded-0" id="unit" value="pcs">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="cost" class="control-label">Cost (₹)</label>
+                                <input type="number" step="any" class="form-control rounded-0" id="cost">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -265,6 +284,9 @@ if (isset($_GET['id'])) {
                 const hsn = item.hsn
                 $("#hsn").val(hsn)
                 $("#gst_percent").val(gst_percent)
+                $("#unit").val(item.unit)
+                $("#cost").val(item.cost)
+                
 
             }
         })
@@ -274,7 +296,7 @@ if (isset($_GET['id'])) {
             var unit = $('#unit').val()
             var hsn = $('#hsn').val() ? $('#hsn').val() : "";
             var gst_percent = $('#gst_percent').val() ? $('#gst_percent').val() : 0;
-            var price = costs[item] || 0
+            var price = $('#cost').val() || 0
             var total = parseFloat(qty) * parseFloat(price)
             // console.log(supplier,item)
             var item_name = items[item].name || 'N/A';

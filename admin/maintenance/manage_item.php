@@ -12,34 +12,48 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 <div class="container-fluid">
 	<form action="" id="item-form">
 		<input type="hidden" name ="id" value="<?php echo isset($id) ? $id : '' ?>">
-		<div class="form-group">
+		
+		<div class="row">
+		<div class="form-group col-8">
 			<label for="name" class="control-label">Name</label>
 			<input type="text" name="name" id="name" class="form-control rounded-0" value="<?php echo isset($name) ? $name : ''; ?>">
+		</div>
+		<div class="form-group col-4">
+			<label for="cost" class="control-label">Cost ₹</label>
+			<input type="number" name="cost" id="cost" step="any" class="form-control rounded-0 text-end" value="<?php echo isset($cost) ? $cost : '0'; ?>">
+		</div>
+	
+
 		</div>
 		<div class="form-group">
 			<label for="description" class="control-label">Description</label>
 			<textarea name="description" id="description" cols="30" rows="2" class="form-control form no-resize"><?php echo isset($description) ? $description : ''; ?></textarea>
 		</div>
-		<div class="form-group">
-			<label for="cost" class="control-label">Cost</label>
-			<input type="number" name="cost" id="cost" step="any" class="form-control rounded-0 text-end" value="<?php echo isset($cost) ? $cost : ''; ?>">
+		<div class="row">
+		<div class="form-group col-6">
+			<label for="cost" class="control-label">Unit</label>
+			<input type="text" name="unit" id="unit" step="any" class="form-control rounded-0 text-end" value="<?php echo isset($unit) ? $unit : ''; ?>">
 		</div>
-		<div class="form-group">
+		<div class="form-group col-6">
 			<label for="supplier_id" class="control-label">Supplier</label>
-			<select name="supplier_id" id="supplier_id" class="custom-select select2">
+			<input name="supplier_id" type="hidden" value="4" alt="remove it when use dynamically selection" >
+			<select name="supplier_id_when use dynamically enable it"  id="supplier_id" class="custom-select select2" disabled>
 			<option <?php echo !isset($supplier_id) ? 'selected' : '' ?> disabled></option>
 			<?php 
 			$supplier = $conn->query("SELECT * FROM `supplier_list` where status = 1 order by `name` asc");
 			while($row=$supplier->fetch_assoc()):
 			?>
-			<option value="<?php echo $row['id'] ?>" <?php echo isset($supplier_id) && $supplier_id == $row['id'] ? "selected" : "" ?> ><?php echo $row['name'] ?></option>
+		<!-- id=4 for universal supplier account -->
+			<option value="<?php echo $row['id'] ?>" <?php echo isset($supplier_id) ? ($supplier_id == $row['id'] ? "selected" : "") : ($row['id'] == 4 ? "selected" : "") ?>><?php echo $row['name'] ?></option>
 			<?php endwhile; ?>
 			</select>
+		</div>
+		
 		</div>
 		<div class="row">
 		<div class="form-group col-6">
 			<label for="cost" class="control-label">HSN</label>
-			<input type="number" name="hsn" id="hsn" step="any" class="form-control rounded-0 text-end" value="<?php echo isset($hsn) ? $hsn : ''; ?>">
+			<input type="text" name="hsn" id="hsn" step="any" class="form-control rounded-0 text-end" value="<?php echo isset($hsn) ? $hsn : ''; ?>">
 		</div>
 		<div class="form-group col-6">
 			<label for="cost" class="control-label">GST %</label>
@@ -48,7 +62,8 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 		</div>
 		<div class="form-group">
 			<label for="status" class="control-label">Status</label>
-			<select name="status" id="status" class="custom-select selevt">
+			<input name="status" value="1" type="hidden" alt="remove it when use dynamically selection" >
+			<select name="status_currently_aaded_hidden_input_to_make_disable" id="status" class="custom-select selevt" disabled>
 			<option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Active</option>
 			<option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactive</option>
 			</select>

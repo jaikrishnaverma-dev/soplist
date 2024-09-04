@@ -25,7 +25,10 @@ class DBConnection{
         
     }
     public function __destruct(){
-        $this->conn->close();
+          // Close the connection if it's open
+          if ($this->conn) {
+            $this->conn->close();
+        }
     }
 }
 ?>

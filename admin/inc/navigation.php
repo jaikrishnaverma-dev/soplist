@@ -1,6 +1,7 @@
+
 </style>
 <!-- Main Sidebar Container -->
-      <aside class="main-sidebar sidebar-dark-primary elevation-4 sidebar-no-expand">
+      <aside class="main-sidebar sidebar-dark-primary elevation-4 sidebar-no-expand ">
         <!-- Brand Logo -->
         <a href="<?php echo base_url ?>admin" class="brand-link bg-primary text-sm">
         <img src="<?php echo validate_image($_settings->info('logo'))?>" alt="Store Logo" class="brand-image img-circle elevation-3 bg-black" style="width: 1.8rem;height: 1.8rem;max-height: unset">
@@ -32,15 +33,34 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=purchase_order" class="nav-link nav-purchase_order">
-                        <i class="nav-icon fas fa-th-list"></i>
+                      <a href="<?php echo base_url ?>admin/?page=sales" class="nav-link nav-sales">
+                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
                         <p>
-                          Purchase Order
+                          Sale List
                         </p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=receiving" class="nav-link nav-receiving">
+                      <a href="<?php echo base_url ?>admin/?page=purchase_order" class="nav-link nav-purchase_order">
+                        <i class="nav-icon fas fa-th-list"></i>
+                        <p>
+                          Purchase 
+                          <!-- Purchase Order -->
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="<?php echo base_url ?>admin/?page=stocks" class="nav-link nav-stocks">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                          Stocks
+                        </p>
+                      </a>
+                    </li>
+                    
+                    <!-- temporarly commented these features -->
+                    <!-- <li class="nav-item">
+                      <a href="<?php //echo base_url ?>admin/?page=receiving" class="nav-link nav-receiving">
                         <i class="nav-icon fas fa-boxes"></i>
                         <p>
                           Receiving
@@ -62,38 +82,25 @@
                           Return List
                         </p>
                       </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=stocks" class="nav-link nav-stocks">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                          Stocks
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=sales" class="nav-link nav-sales">
-                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                        <p>
-                          Sale List
-                        </p>
-                      </a>
-                    </li>
+                    </li> -->
+                  
+               
                     <?php if($_settings->userdata('type') == 1): ?>
                     <li class="nav-header">Maintenance</li>
-                    <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=maintenance/supplier" class="nav-link nav-maintenance_supplier">
-                        <i class="nav-icon fas fa-truck-loading"></i>
-                        <p>
-                          Supplier List
-                        </p>
-                      </a>
-                    </li>
+                    
                     <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=maintenance/item" class="nav-link nav-maintenance_item">
                         <i class="nav-icon fas fa-boxes"></i>
                         <p>
                           Item List
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a href="<?php echo base_url ?>admin/?page=maintenance/supplier" class="nav-link nav-maintenance_supplier">
+                        <i class="nav-icon fas fa-truck-loading"></i>
+                        <p>
+                          Supplier List
                         </p>
                       </a>
                     </li>
@@ -135,6 +142,7 @@
         </div>
         <!-- /.sidebar -->
       </aside>
+
       <script>
         var page;
     $(document).ready(function(){

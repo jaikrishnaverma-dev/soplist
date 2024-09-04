@@ -43,7 +43,7 @@ if (isset($_GET['id'])) {
                                 $supplier = $conn->query("SELECT * FROM `supplier_list` where status = 1 order by `name` asc");
                                 while ($row = $supplier->fetch_assoc()):
                                 ?>
-                                    <option value="<?php echo $row['id'] ?>" <?php echo isset($supplier_id) && $supplier_id == $row['id'] ? "selected" : "" ?>><?php echo $row['name'] ?></option>
+                                    <option value="<?php echo $row['id'] ?>" <?php echo isset($supplier_id) ?( $supplier_id == $row['id'] ? "selected" : ""):($row['id'] == 4 ? "selected" : "") ?>><?php echo $row['name'] ?></option>
                                 <?php endwhile; ?>
                             </select>
                         </div>
@@ -80,10 +80,16 @@ if (isset($_GET['id'])) {
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="unit" class="control-label">Unit</label>
-                                <input type="text" value="pcs" class="form-control rounded-0" id="unit">
+                                <input type="text"  class="form-control rounded-0" id="unit">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="cost" class="control-label">Cost (₹)</label>
+                                <input type="number" step="any" class="form-control rounded-0" id="cost">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -192,7 +198,7 @@ if (isset($_GET['id'])) {
                         </tr>
 
                         <tr id="total_gst_distribution">
-                            <th class="text-right py-1 px-2" colspan="7" id="total_gst_distribution_label">Total (CGST+ IGST) 
+                            <th class="text-right py-1 px-2" colspan="7" id="total_gst_distribution_label">Total (SGST + CGST) 
                             </th>
                             <th class="text-right py-1 px-2 tax" id="total_gst_value">0</th>
 
@@ -202,7 +208,7 @@ if (isset($_GET['id'])) {
                             <th class="text-right py-1 px-2" colspan="7">Total
                                 <input type="hidden" name="amount" value="<?php echo isset($amount) ? $amount : 0 ?>">
                                 <input type="hidden" name="tax" value="<?php echo isset($tax) ? $tax : 0 ?>">
-                                <input type="hidden" name="status" value="2">
+                                <!-- <input type="hidden" name="status" value="2"> -->
                                 <!-- total as amount -->
                             </th>
                             <th class="text-right py-1 px-2 grand-total">0</th>
@@ -255,7 +261,10 @@ if (isset($_GET['id'])) {
     </tr>
 </table>
 <script>
-    var items = $.parseJSON('<?php echo json_encode($item_arr) ?>')
+      
+    $(document).ready(function() {
+        var initialLoad = true;
+        var items = $.parseJSON('<?php echo json_encode($item_arr) ?>')
     var costs = $.parseJSON('<?php echo json_encode($cost_arr) ?>')
 
     $(function() {
@@ -281,6 +290,8 @@ if (isset($_GET['id'])) {
                 const hsn = item.hsn
                 $("#hsn").val(hsn)
                 $("#gst_percent").val(gst_percent)
+                $("#unit").val(item.unit)
+                $("#cost").val(item.cost)
 
             }
         })
@@ -327,7 +338,7 @@ if (isset($_GET['id'])) {
             var unit = $('#unit').val();
             var hsn = $('#hsn').val() ? $('#hsn').val() : "";
             var gst_percent = $('#gst_percent').val() ? $('#gst_percent').val() : 0;
-            var price = costs[item] || 0;
+            var price = $('#cost').val() || 0;
             var total = parseFloat(qty) * parseFloat(price);
             var item_name = items[supplier][item].name || 'N/A';
             var item_description = items[supplier][item].description || 'N/A';
@@ -431,7 +442,7 @@ if (isset($_GET['id'])) {
         var grand_total = 0;
         var discount = 0;
         var tax = 0;
-        var istypeIGST = $("#billing_type").val() == "Intra State";
+        var istypeIGST = $("#billing_type").val() == "1";
         if (istypeIGST) {
             $("#total_gst_distribution_label").text("Total IGST");
         } else {
@@ -484,4 +495,14 @@ if (isset($_GET['id'])) {
         $('[name="amount"]').val(parseFloat(grand_total))
 
     }
+   
+    if (initialLoad) {
+setTimeout(()=>{
+    $('#supplier_id').trigger('change');
+    initialLoad=false
+},150)
+    }
+    })
+
+
 </script>

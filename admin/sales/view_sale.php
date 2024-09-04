@@ -13,25 +13,31 @@ if($qry->num_rows >0){
     <div class="card-body" id="print_out">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-5">
-                    <label class="control-label text-info">Sales Code</label>
-                    <div><?php echo isset($sales_code) ? $sales_code : '' ?></div>
+                <div class="col-md-3">
+                    <label class="control-label text-info mb-0">Sales Code  <small style="">(<?php echo isset($is_tax_igst)&&$is_tax_igst ? "Intra State" : "Under state" ?>)</small></label>
+                    <div><?php echo isset($sales_code) ? $sales_code : '' ?> </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="client" class="control-label text-info">Client Name</label>
-                        <div><?php echo isset($client) ? $client : '' ?></div>
+                    <label for="client" class="control-label text-info mb-0 mt-1">Client Name</label>
+                        <div><?php echo isset($client) ? ucwords($client ): '' ?></div>
                     </div>
+                </div>
+                <div class="col-md-3">
+                <label for="client" class="control-label text-info mb-0 ">Client Details</label>
+                <p class="m-0">Contact No.: <?php echo isset($client_contact_no) ? $client_contact_no : '' ?></p>
+                <p  class="m-0">Address: <?php echo isset($client_addr) ? ucwords($client_addr) : '' ?></p>
                 </div>
                 <div class="col-md-2">
-                <div class="form-group">
-                        <label for="supplier_id" class="control-label text-info">Billing Type</label>
-                        <div><?php echo isset($is_tax_igst)&&$is_tax_igst ? "Intra State" : "Under state" ?></div>
+                    <div class="form-group">
+                    <label for="client" class="control-label text-info mb-0 mt-1">Sale Date</label>
+                        <div><?php echo isset($date_created) ? ucwords($date_created ): '' ?></div>
                     </div>
-                
                 </div>
+                
             </div>
-            <h4 class="text-info">Items</h4>
+            
+            <h4 class="text-info mt-2">Items</h4>
             <table class="table table-striped table-bordered" id="list">
                 <colgroup>
                     <col width="5%">
